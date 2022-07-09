@@ -387,7 +387,7 @@ BLENDER_VERSION="v3.2.0"
 compile_TBB
 compile_Python
 compile_Boost
-compile_FFmpeg true
+compile_FFmpeg
 compile_OpenEXR
 compile_OpenVDB
 compile_OCIO 

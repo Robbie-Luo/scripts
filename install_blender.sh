@@ -1,16 +1,26 @@
 #!/bin/bash
-LIB_DIR="/home/lwt595403/lib"
+LIB_DIR="/home/lwt595403/Lib"
 INST_DIR="/opt"
 TYPE="release"
 
-if [ $TYPE = "debug" ];then
-    BUILD_TYPE="Debug"
-else
-    BUILD_TYPE="Release"
-fi
+TBB_VERSION="v2021.5.0"
+PYTHON_VERSION="v3.10.5"
+BOOST_VERSION="1.78.0"
+OPENEXR_VERSION="v2.5.8"
+OPENVDB_VERSION="v9.1.0"
+OCIO_VERSION="v2.1.2"
+OIIO_VERSION="v2.3.16.0"
+OSL_VERSION="Release-1.11.17.0"
+OSD_VERSION="v3_4_4"
+OPENXR_VERSION="1.0.24"
+EMBREE_VERSION="v3.13.3"
+BLENDER_VERSION="v3.2.0"
+
+echo "$INST_DIR/deps" > $INST_DIR/.profile 
 
 function add_to_path()
 {
+    echo "$1" >> $INST_DIR/.profile 
     export PATH="$1/bin:$PATH"
     export LD_LIBRARY_PATH="$1/lib:$LD_LIBRARY_PATH"
     export CMAKE_PREFIX_PATH="$1:$CMAKE_PREFIX_PATH"
@@ -371,25 +381,14 @@ compile_deps openxr release-1.0.24 https://github.com/KhronosGroup/OpenXR-SDK.gi
 compile_deps OpenCOLLADA v1.6.68 https://github.com/KhronosGroup/OpenCOLLADA.git
 compile_deps alembic 1.7.16 https://github.com/alembic/alembic.git
 
-TBB_VERSION="v2021.5.0"
-PYTHON_VERSION="v3.10.5"
-BOOST_VERSION="1.78.0"
-OPENEXR_VERSION="v2.5.8"
-OPENVDB_VERSION="v9.1.0"
-OCIO_VERSION="v2.1.2"
-OIIO_VERSION="v2.3.16.0"
-OSL_VERSION="Release-1.11.17.0"
-OSD_VERSION="v3_4_4"
-OPENXR_VERSION="1.0.24"
-EMBREE_VERSION="v3.13.3"
-BLENDER_VERSION="v3.2.0"
+
 
 compile_TBB
 compile_Python
 compile_Boost
 compile_FFmpeg
 compile_OpenEXR
-compile_OpenVDB
+# compile_OpenVDB
 compile_OCIO 
 compile_OIIO
 compile_OSL

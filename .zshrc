@@ -53,14 +53,14 @@ alias run="cd $HOME_DIR/run"
 # Proxy
 function set_proxy()
 {
-    PROXY=http://127.0.0.1:3128
+    PROXY=$1
     export http_proxy=$PROXY
     export https_proxy=$PROXY
     export no_proxy="localhost,127.0.0.1,172.19.*,10.*,7.*,172.16.*,126.26.*,*.huawei.com"
 #    git config --global http.proxy $PROXY
 #    git config --global https.proxy $PROXY
 }
-set_proxy
+set_proxy http://127.0.0.1:3128
 # DISPLAY
 function set_display()
 {

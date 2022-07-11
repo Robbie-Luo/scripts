@@ -21,7 +21,9 @@ function prepare_build()
         mkdir build
     fi
     cd build
-    rm -rf *
+    if [ "$FORCE_REBUILD" = true ];then
+        rm -rf *
+    fi
 }
 
 function compile()
@@ -52,6 +54,9 @@ function compile_release()
         mkdir build-$TYPE
     fi
     cd build-$TYPE
+    if [ "$FORCE_REBUILD" = true ];then
+        rm -rf *
+    fi
     cmake_d="$4"
     cmake_d="$cmake_d -DCMAKE_BUILD_TYPE=Release"
     cmake_d="$cmake_d -DCMAKE_INSTALL_PREFIX=$PREFIX"
@@ -91,7 +96,7 @@ function compile_boost()
     PREFIX=$INST_DIR/$1/$2
     update_path $PREFIX
     if [ ! -d $PREFIX ];then
-        ../bootstrap.sh --with-python-root=$INST_DIR/python/$PYTHON_VERSION --with-python-version=3.10 
+        ../bootstrap.sh --with-python-root=$INST_DIR/python/v3.10.5 --with-python-version=3.10 
         cd ..
         build/b2 -j96 --prefix=$PREFIX --with-system --with-filesystem --with-thread --with-regex --with-locale --with-date_time --with-wave --with-iostreams --with-python --with-program_options --with-serialization --with-atomic  install 
     fi

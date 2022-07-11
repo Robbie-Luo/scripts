@@ -8,77 +8,18 @@ plugins=(
 )
 source $ZSH/oh-my-zsh.sh
 
-# Path
-LIST="
-/env/base/bin
-/opt/install/mono/bin
-/opt/install/python/3.10.5/bin
-/opt/install/cmake/3.22.1/bin
-/opt/install/ispc/1.18.0/bin
-/opt/install/llvm/14.0.6/bin
-/usr/local/sbin
-/usr/local/bin
-/usr/sbin
-/usr/bin
-/bin
-"
-export PATH=$(echo $LIST | sed '1d' | sed '$d' | tr '\n' ':')
-unset LIST
+function add_to_path()
+{
+    echo "$1" >> $INST_DIR/.profile 
+    export PATH="$1/bin:$PATH"
+    export LD_LIBRARY_PATH="$1/lib:$LD_LIBRARY_PATH"
+    export CMAKE_PREFIX_PATH="$1:$CMAKE_PREFIX_PATH"
+}
 
-# LD_LIBRARY_PATH
-LIST="
-/opt/install/alembic/1.7.16/lib
-/opt/install/osd/3.4.4/lib
-/opt/install/osl/1.11.17/lib
-/opt/install/oiio/2.3.16/lib
-/opt/install/ocio/2.1.2/lib
-/opt/install/opencollada/1.6.68/lib
-/opt/install/openvdb/9.1.0/lib
-/opt/install/openexr/2.5.8/lib
-/opt/install/openxr/1.0.24/lib
-/opt/install/Imath/3.1.5/lib
-/opt/install/python/3.10.5/lib
-/opt/install/boost/1.78.0/lib
-/opt/install/llvm/14.0.6/lib
-/opt/install/kplblas/lib
-/opt/install/mono/lib
-/opt/deps/lib
-/usr/local/lib/aarch64-linux-gnu
-/usr/lib/aarch64-linux-gnu
-/lib/aarch64-linux-gnu
-"
-export LD_LIBRARY_PATH=$(echo $LIST | sed '1d' | sed '$d' | tr '\n' ':')
-unset LIST
-
-# CMAKE_PREFIX_PATH
-LIST="
-/opt/install/alembic/1.7.16
-/opt/install/osd/3.4.4
-/opt/install/osl/1.11.17
-/opt/install/oiio/2.3.16
-/opt/install/ocio/2.1.2
-/opt/install/opencollada/1.6.68
-/opt/install/openvdb/9.1.0
-/opt/install/openexr/2.5.8
-/opt/install/openxr/1.0.24
-/opt/install/Imath/3.1.5
-/opt/install/python/3.10.5
-/opt/install/boost/1.78.0
-/opt/install/llvm/14.0.6
-/opt/install/kplblas
-/opt/deps
-"
-export CMAKE_PREFIX_PATH=$(echo $LIST | sed '1d' | sed '$d' | tr '\n' ':')
-unset LIST
-
-#PKG_CONFIG
-LIST="
-/opt/install/python/3.10.5/lib/pkgconfig
-"
-export PKG_CONFIG_PATH=$(echo $LIST | sed '1d' | sed '$d' | tr '\n' ':')
-unset LIST
-
-source /opt/profile
+for i in $(cat /opt/.profile)
+do
+    add_to_path $i
+done
 
 # Tmux alias
 alias tn="tmux new -s"
@@ -105,6 +46,9 @@ alias src="cd $HOME_DIR/src"
 alias lib="cd $HOME_DIR/lib"
 alias repo="cd $HOME_DIR/repo"
 alias dev="cd $HOME_DIR/dev"
+alias run="cd $HOME_DIR/run"
+
+
 
 # Proxy
 function set_proxy()

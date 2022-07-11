@@ -87,7 +87,7 @@ function kill_root()
 
 function edit_zshrc()
 {
-    vim ~/.zshrc
+    vim /home/lwt595403/run/.zshrc
     source ~/.zshrc
 }
 alias z='edit_zshrc'

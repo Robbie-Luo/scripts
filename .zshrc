@@ -1,6 +1,10 @@
 export ZSH="/root/.oh-my-zsh"
 export TERM=xterm-256color
 
+if [ ! -d /root/.oh-my-zsh/custom/plugins/zsh-autosuggestions ];then
+  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+fi
+
 ZSH_THEME="robbyrussell"
 plugins=(
     git
@@ -15,11 +19,12 @@ function add_to_path()
     export LD_LIBRARY_PATH="$1/lib:$LD_LIBRARY_PATH"
     export CMAKE_PREFIX_PATH="$1:$CMAKE_PREFIX_PATH"
 }
-
-for i in $(cat /opt/.profile)
-do
+if [ -d /opt/.profile ];then
+  for i in $(cat /opt/.profile)
+  do
     add_to_path $i
-done
+  done
+fi
 
 # Tmux alias
 alias tn="tmux new -s"

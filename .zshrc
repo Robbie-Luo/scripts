@@ -52,6 +52,8 @@ alias lib="cd $HOME_DIR/lib"
 alias repo="cd $HOME_DIR/repo"
 alias dev="cd $HOME_DIR/dev"
 alias run="cd $HOME_DIR/run"
+alias save="cd $HOME_DIR/save"
+
 
 
 

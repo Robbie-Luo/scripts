@@ -3,7 +3,7 @@ set -e
 LIB_DIR="/home/lwt595403/lib"
 INST_DIR="/opt"
 BUILD_TYPE="Release"
-FORCE_REBUILD="false"
+FORCE_REBUILD="true"
 
 echo "$INST_DIR/deps" > $INST_DIR/.profile
 

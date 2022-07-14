@@ -2,7 +2,7 @@ export ZSH="/root/.oh-my-zsh"
 export TERM=xterm-256color
 
 if [ ! -d /root/.oh-my-zsh/custom/plugins/zsh-autosuggestions ];then
-  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 fi
 
 ZSH_THEME="robbyrussell"
@@ -14,16 +14,16 @@ source $ZSH/oh-my-zsh.sh
 
 function add_to_path()
 {
-    echo "$1" >> $INST_DIR/.profile 
+    echo "$1" >> $INST_DIR/.profile
     export PATH="$1/bin:$PATH"
     export LD_LIBRARY_PATH="$1/lib:$LD_LIBRARY_PATH"
     export CMAKE_PREFIX_PATH="$1:$CMAKE_PREFIX_PATH"
 }
 if [ -d /opt/.profile ];then
-  for i in $(cat /opt/.profile)
-  do
-    add_to_path $i
-  done
+    for i in $(cat /opt/.profile)
+    do
+        add_to_path $i
+    done
 fi
 
 # Tmux alias
@@ -61,8 +61,8 @@ function set_proxy()
     export http_proxy=$PROXY
     export https_proxy=$PROXY
     export no_proxy="localhost,127.0.0.1,172.19.*,10.*,7.*,172.16.*,126.26.*,*.huawei.com"
-#    git config --global http.proxy $PROXY
-#    git config --global https.proxy $PROXY
+    #    git config --global http.proxy $PROXY
+    #    git config --global https.proxy $PROXY
 }
 set_proxy http://127.0.0.1:3128
 # DISPLAY
@@ -103,7 +103,7 @@ function edit_profile()
 }
 alias x='edit_profile'
 
-chpwd() ls 
+chpwd() ls
 
 if [ -d ~/thinclient_drives ]; then
     umount thinclient_drives

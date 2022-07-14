@@ -7,26 +7,26 @@ apt install zsh tmux
 PREFIX="$HOME_DIR/.oh-my-zsh"
 #rm -rf $PREFIX
 if [ ! -d $PREFIX ];then
-  git clone https://github.com/ohmyzsh/ohmyzsh.git $PREFIX
-  cp $CURR_DIR/.zshrc $HOME_DIR
-  chsh -s $(which zsh)
-  cp $CURR_DIR/.zshrc $HOME_DIR
+    git clone https://github.com/ohmyzsh/ohmyzsh.git $PREFIX
+    cp $CURR_DIR/.zshrc $HOME_DIR
+    chsh -s $(which zsh)
+    cp $CURR_DIR/.zshrc $HOME_DIR
 fi
 
 PREFIX="$HOME_DIR/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
 if [ ! -d $PREFIX ];then
-	git clone https://github.com/zsh-users/zsh-autosuggestions $PREFIX 
+    git clone https://github.com/zsh-users/zsh-autosuggestions $PREFIX
 fi
 
 #tmux
 PREFIX="$HOME_DIR/.tmux/plugins/tpm"
 if [ ! -d $PREFIX ];then
-	git clone https://github.com/tmux-plugins/tpm $PREFIX
+    git clone https://github.com/tmux-plugins/tpm $PREFIX
 fi
 echo "set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'arcticicestudio/nord-tmux'
-run '$HOME_DIR/.tmux/plugins/tpm/tpm'" > $HOME_DIR/.tmux.conf 
+run '$HOME_DIR/.tmux/plugins/tpm/tpm'" > $HOME_DIR/.tmux.conf
 
 #gnome-nord
 PREFIX=$HOME_DIR/.themes/nord-gnome-terminal
@@ -43,7 +43,6 @@ if [ ! -d $PREFIX ];then
 fi
 gsettings set org.gnome.desktop.interface gtk-theme "Nordic"
 gsettings set org.gnome.desktop.wm.preferences theme "Nordic"
-
 
 PREFIX=$HOME_DIR/.themes/Tela-icon-theme
 if [ ! -d $PREFIX ];then

@@ -1,7 +1,7 @@
 conky.config = {
 -- Conky settings #
     background = false,
-    update_interval = 1,
+    update_interval = 2,
 
     cpu_avg_samples = 2,
     net_avg_samples = 2,
@@ -25,8 +25,8 @@ conky.config = {
     border_inner_margin = 0,
     border_outer_margin = 5,
 
-    minimum_width = 400, minimum_height = 300,
-    maximum_width = 400, maximum_width = 1080,
+    minimum_width = 450, minimum_height = 1080,
+    maximum_width = 450, maximum_height = 1080,
 
 
     alignment = 'top_right',
@@ -41,7 +41,7 @@ conky.config = {
 
 -- Text settings #
     use_xft = true,
-    font = 'Radio_Space:size=10',
+    font = 'Consolas :size=8',
     xftalpha = 0.5,
 
     uppercase = false,
@@ -93,21 +93,21 @@ conky.text = [[
 #----------------------------------------------------------------------------------------------------------------------------------------
 #                            Time and date 
 #----------------------------------------------------------------------------------------------------------------------------------------
-${voffset 7}${font Radio_Space:size=24}${color2}${time %A}${font}$color${font Radio_Space:size=36}${goto 187}${voffset -8}${color4}${time %e}${font}${color}
-${font Radio_Space:size=18}${voffset -30}${time %b}${font}${voffset -3} ${font Radio_Space:size=24}${time %Y}${font}${color1} ${hr 2}
-${voffset 7}${goto 230}${font Radio_Space:size=36}${color3}${time %H}$color:${time %M}${font}
+${voffset 7}${font Consolas :size=32}${color2}${time %A}${font}$color${font Consolas :size=34}${goto 320}${voffset -8}${color4}${time %e}${font}${color}
+${font Consolas :size=18}${voffset -30}${time %b}${font}${voffset -3} ${font Consolas :size=24}${time %Y}${font}${color1} ${hr 2}
+${voffset 7}${goto 230}${font Consolas :size=30}${color3}${time %H}$color:${time %M}${font}
 #----------------------------------------------------------------------------------------------------------------------------------------
 #                              CPU usage 
 #----------------------------------------------------------------------------------------------------------------------------------------
 ${goto 220}${color1}${voffset 12}Temp:${alignr}$color ${if_existing /sys/class/thermal/thermal_zone0/temp}${eval ${acpitemp}}${else} ${endif}°C
-${goto 220}${color1}${voffset 6}Processes:${alignr}$color $processes
-${goto 220}${color1}${voffset 6}FREQ:${alignr}$color ${freq}MHz
-${goto 220}${color1}${voffset 6}Load:${alignr}$color ${loadavg}
-${goto 220}${color1}${voffset 6}Uptime:${alignr}$color ${uptime_short}
+#${goto 220}${color1}${voffset 8}Processes:${alignr}$color $processes
+${goto 220}${color1}${voffset 8}FREQ:${alignr}$color ${freq}MHz
+${goto 220}${color1}${voffset 8}Load:${alignr}$color ${loadavg}
+${goto 220}${color1}${voffset 8}Uptime:${alignr}$color ${uptime_short}
 #----------------------------------------------------------------------------------------------------------------------------------------
 #                       Network
 #----------------------------------------------------------------------------------------------------------------------------------------
-${color1}${voffset 2}${hr 2}
+${color1}${voffset 20}${hr 2}
 #----------------------------------------------------------------------------------------------------------------------------------------
 #                        Computer info
 #----------------------------------------------------------------------------------------------------------------------------------------
@@ -137,7 +137,7 @@ ${top name 3}${goto 205}${top pid 3}${goto 280}${top cpu 3}${goto 380}${top mem 
 ${top name 4}${goto 205}${top pid 4}${goto 280}${top cpu 4}${goto 380}${top mem 4}
 ${top name 5}${goto 205}${top pid 5}${goto 280}${top cpu 5}${goto 380}${top mem 5}
 ${color1}${voffset 2}${hr 2}
-${voffset 5}${font Radio_Space:size=8}${exec dmesg -T | tail -n 10 | cut -c-50 }
+${voffset 5}${font Consolas :size=8}${exec dmesg -T | tail -n 10 | cut -c-50 }
 ]];
 
 

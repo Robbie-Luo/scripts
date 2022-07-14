@@ -6,6 +6,7 @@ if [ ! -d /root/.oh-my-zsh/custom/plugins/zsh-autosuggestions ];then
 fi
 
 ZSH_THEME="robbyrussell"
+LC_ALL=en_US.UTF-8
 plugins=(
     git
     zsh-autosuggestions

@@ -54,9 +54,6 @@ alias dev="cd $HOME_DIR/dev"
 alias run="cd $HOME_DIR/run"
 alias save="cd $HOME_DIR/save"
 
-
-
-
 # Proxy
 function set_proxy()
 {
@@ -101,7 +98,7 @@ alias z='edit_zshrc'
 
 function edit_profile()
 {
-    vim /opt/profile
+    vim /opt/.profile
     source ~/.zshrc
 }
 alias x='edit_profile'

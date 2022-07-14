@@ -1,0 +1,144 @@
+conky.config = {
+-- Conky settings #
+    background = false,
+    update_interval = 1,
+
+    cpu_avg_samples = 2,
+    net_avg_samples = 2,
+
+    override_utf8_locale = true,
+
+    double_buffer = true,
+    no_buffers = true,
+
+    text_buffer_size = 2048,
+--imlib_cache_size 0
+
+
+-- Window specifications #
+    own_window = true,
+    own_window_type = 'normal',
+    own_window_transparent = true,
+    own_window_transparent = true,
+    own_window_hints = 'undecorated,skip_taskbar,skip_pager,below',
+
+    border_inner_margin = 0,
+    border_outer_margin = 5,
+
+    minimum_width = 400, minimum_height = 300,
+    maximum_width = 400, maximum_width = 1080,
+
+
+    alignment = 'top_right',
+    gap_x = 10,
+    gap_y = 0,
+
+-- Graphics settings #
+    draw_shades = false,
+    draw_outline = false,
+    draw_borders = false,
+    draw_graph_borders = true,
+
+-- Text settings #
+    use_xft = true,
+    font = 'Radio_Space:size=10',
+    xftalpha = 0.5,
+
+    uppercase = false,
+
+--  temperature_unit = 'fahrenheit',
+    temperature_unit = 'celsius',
+
+    -- default_color = 'FFFFFF',
+    -- color0 = 'FFFFFF',
+    -- color1 = '0ABFFF',
+    default_color = 'ffffff',
+    color0 = 'ffffff',
+    color1 = '8FBCBB',
+    color2 = 'A3BE8C',
+    color3 = 'BF616A',
+    color4 = 'EBCB8B',
+    color5 = 'B48EAD',
+    color6 = 'D08770',
+
+
+-- Lua Load  #
+    lua_load = './clock01_rings.lua',
+    lua_draw_hook_pre = 'clock_rings',
+
+    own_window_argb_value = 0,
+    own_window_argb_visual = true,
+    own_window_colour = '000000',
+
+-- network templates
+    if_up_strictness = 'address',
+
+    template0 = [[${color1}\1: $color$alignr${addr \1}
+${color1}Current: $color${alignr}${execi 10 test -e /sys/class/net/\1 && /sbin/iwconfig \1 | awk '/Bit Rate=/ { sub(/Rate=/,"", $2); print $2 }'} Mbits/sec]],
+
+    template1 = [[${voffset 6}${color2}Down: ${downspeed \1}/s ${goto 235}${color3}Up: ${upspeed \1}/s
+${color2}${downspeedgraph \1 36,220 000000 ${color2}} ${alignr}${color3}${upspeedgraph \1 36,220 000000 ${color3}}$color]],
+   template2 = 'enp59s0',
+};
+
+-- fluxbox adjustment
+return_code = os.execute('pidof -q fluxbox')
+if _VERSION == 'Lua 5.1' and math.floor(return_code/256) == 0 or
+   _VERSION ~= 'Lua 5.1' and return_code then
+   conky.config.own_window_transparent = true
+   conky.config.own_window_argb_visual = false
+end
+
+conky.text = [[
+#----------------------------------------------------------------------------------------------------------------------------------------
+#                            Time and date 
+#----------------------------------------------------------------------------------------------------------------------------------------
+${voffset 7}${font Radio_Space:size=24}${color2}${time %A}${font}$color${font Radio_Space:size=36}${goto 187}${voffset -8}${color4}${time %e}${font}${color}
+${font Radio_Space:size=18}${voffset -30}${time %b}${font}${voffset -3} ${font Radio_Space:size=24}${time %Y}${font}${color1} ${hr 2}
+${voffset 7}${goto 230}${font Radio_Space:size=36}${color3}${time %H}$color:${time %M}${font}
+#----------------------------------------------------------------------------------------------------------------------------------------
+#                              CPU usage 
+#----------------------------------------------------------------------------------------------------------------------------------------
+${goto 220}${color1}${voffset 12}Temp:${alignr}$color ${if_existing /sys/class/thermal/thermal_zone0/temp}${eval ${acpitemp}}${else} ${endif}°C
+${goto 220}${color1}${voffset 6}Processes:${alignr}$color $processes
+${goto 220}${color1}${voffset 6}FREQ:${alignr}$color ${freq}MHz
+${goto 220}${color1}${voffset 6}Load:${alignr}$color ${loadavg}
+${goto 220}${color1}${voffset 6}Uptime:${alignr}$color ${uptime_short}
+#----------------------------------------------------------------------------------------------------------------------------------------
+#                       Network
+#----------------------------------------------------------------------------------------------------------------------------------------
+${color1}${voffset 2}${hr 2}
+#----------------------------------------------------------------------------------------------------------------------------------------
+#                        Computer info
+#----------------------------------------------------------------------------------------------------------------------------------------
+${voffset 6}${color1}OS:$color${alignr}${exec cat /etc/issue | awk '{print $1 $2 $3}' | sed '$d'}
+${voffset 6}${color1}Machine:$color${alignr}${machine}
+${voffset 6}${color1}Kernel:$color${alignr}${kernel}
+${voffset 6}${color1}IP(${template2}): $color$alignr${addr ${template2}}
+${voffset 100}
+
+#----------------------------------------------------------------------------------------------------------------------------------------
+#                   DISK/RAM/SWAP usage
+#----------------------------------------------------------------------------------------------------------------------------------------
+${color4}CPU Usage: ${alignr}${cpu cpu0}%
+${cpubar cpu0 36}
+${color5}Memory Usage: ${alignr}${mem} / ${memmax}(${memperc}%)
+${membar 36}
+${color6}Disk Usage: ${alignr}${fs_used /} / ${fs_size /}(${fs_used_perc}%)
+${fs_bar 36 /}
+${template1 ${template2}}
+#----------------------------------------------------------------------------------------------------------------------------------------
+#                      Running processes
+#----------------------------------------------------------------------------------------------------------------------------------------
+${color1}${voffset 5}NAME${goto 205}PID${goto 300}CPU%${goto 400}MEM%$color${voffset 5}
+${top name 1}${goto 205}${top pid 1}${goto 280}${top cpu 1}${goto 380}${top mem 1}
+${top name 2}${goto 205}${top pid 2}${goto 280}${top cpu 2}${goto 380}${top mem 2}
+${top name 3}${goto 205}${top pid 3}${goto 280}${top cpu 3}${goto 380}${top mem 3}
+${top name 4}${goto 205}${top pid 4}${goto 280}${top cpu 4}${goto 380}${top mem 4}
+${top name 5}${goto 205}${top pid 5}${goto 280}${top cpu 5}${goto 380}${top mem 5}
+${color1}${voffset 2}${hr 2}
+${voffset 5}${font Radio_Space:size=8}${exec dmesg -T | tail -n 10 | cut -c-50 }
+]];
+
+
+

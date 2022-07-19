@@ -15,12 +15,11 @@ source $ZSH/oh-my-zsh.sh
 
 function add_to_path()
 {
-    echo "$1" >> $INST_DIR/.profile
     export PATH="$1/bin:$PATH"
     export LD_LIBRARY_PATH="$1/lib:$LD_LIBRARY_PATH"
     export CMAKE_PREFIX_PATH="$1:$CMAKE_PREFIX_PATH"
 }
-if [ -d /opt/.profile ];then
+if [ -f /opt/.profile ];then
     for i in $(cat /opt/.profile)
     do
         add_to_path $i

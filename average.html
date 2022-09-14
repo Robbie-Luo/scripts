@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Average(complex)</title>
+</head>
+
+<script type="text/javascript">
+    var sum = 0;
+    var count = 0;
+    function calculate_average() {
+        var input = document.getElementById("num_input").valueAsNumber;
+        if (isNaN(input)) {
+            alert("Input invalid! Please enter a valid number.");
+        }
+        else {
+            sum += input;
+            count += 1;
+            document.getElementById("average_value").innerText = sum / count;
+            document.getElementById("count").innerText = count;
+            let li = document.createElement("li");
+            li.innerText = input;
+            document.getElementById("lstNums").appendChild(li);
+        }
+    }
+
+    function reset() {
+        sum = 0;
+        count = 0;
+        document.getElementById("average_value").innerText = 0;
+        document.getElementById("count").innerText = 0;
+        document.getElementById("lstNums").replaceChildren();
+    }
+</script>
+
+<body>
+    <h1>01.1 Average(complex)</h1>
+    <p>Please enter a number</p>
+    <input type="number" id="num_input"><br><br>
+    <button onclick="calculate_average()">Calculate Average</button> <button onclick="reset()">Reset</button>
+    <h4>Average: <span id="average_value">0</span></h4>
+    <h4>Number of Numbers: <span id="count">0</span></h4>
+    <h4>Numbers:</h4>
+    <ul id="lstNums"></ul>
+</body>
+
+</html>

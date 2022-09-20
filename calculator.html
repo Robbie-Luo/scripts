@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Calculator(complex)</title>
+</head>
+<script type="text/javascript">
+    function cal_func() {
+        let num1 = document.getElementById("inpNum1").valueAsNumber;
+        let num2 = document.getElementById("inpNum2").valueAsNumber;
+        var operator = document.getElementById("dropdown").value;
+        switch (operator) {
+            case "add":
+                document.getElementById("output").innerHTML = num1 + num2;
+                break;
+            case "minus":
+                document.getElementById("output").innerHTML = num1 - num2;
+                break;
+            case "times":
+                document.getElementById("output").innerHTML = num1 * num2;
+                break;
+            case "divide":
+                document.getElementById("output").innerHTML = num1 / num2;
+                break;
+            case "mod":
+                document.getElementById("output").innerHTML = num1 % num2;
+                break;
+        }
+    };
+</script>
+<style>
+    body {
+        font-size: 16px;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    td,
+    th {
+        border: 0.5px solid #000;
+        min-width: 80px;
+        padding: 2px 0;
+        line-height: 16px;
+        text-align: center;
+        height: 10px;
+    }
+
+    input {
+        width: 60px;
+    }
+</style>
+
+<body>
+    <h1>Mini Calculator</h1>
+    <p>A simplified standard calculator</p>
+
+    <table cellspacing="0">
+        <tbody>
+            <tr>
+                <td>
+                    <input type="number" id="inpNum1" oninput="cal_func()" value=0>
+                </td>
+                <td>
+                    <select id="dropdown" onchange="cal_func()">
+                        <option selected value="add">+</option>
+                        <option value="minus">-</option>
+                        <option value="times">x</option>
+                        <option value="divide">/</option>
+                        <option value="mod">%</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="number" id="inpNum2" oninput="cal_func()" value=0>
+                </td>
+                <td>
+                    =
+                </td>
+                <td>
+                    <div id="output">0</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>A standard calculator</p>
+
+    <table cellspacing="0">
+        <tbody>
+            <tr>
+                <td colspan="5"></td>
+                <td rowspan="7"></td>
+            </tr>
+            <tr>
+                <td colspan="5">0</td>
+            </tr>
+            <tr>
+                <td><button>C</button></td>
+                <td><button>+/-</button></td>
+                <td><button>%</button></td>
+                <td><button>/</button></td>
+                <td><button>MC</button></td>
+            </tr>
+            <tr>
+                <td><button>7</button></td>
+                <td><button>8</button></td>
+                <td><button>9</button></td>
+                <td><button>*</button></td>
+                <td><button>MR</button></td>
+            </tr>
+            <tr>
+                <td><button>4</button></td>
+                <td><button>5</button></td>
+                <td><button>6</button></td>
+                <td><button>-</button></td>
+                <td><button>MS</button></td>
+            </tr>
+            <tr>
+                <td><button>1</button></td>
+                <td><button>2</button></td>
+                <td><button>3</button></td>
+                <td><button>+</button></td>
+                <td><button>M+</button></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button>0</button></td>
+                <td><button>.</button></td>
+                <td><button>=</button></td>
+                <td><button>M-</button></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

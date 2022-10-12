@@ -1,0 +1,144 @@
+ROOT_DIR="/root"
+HOME_DIR="/home/lwt595403"
+
+export ZSH="/root/.oh-my-zsh"
+export TERM=xterm-256color
+export LC_ALL=en_US.UTF-8
+
+if [ ! -d ${ZSH} ];then
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
+ZSH_THEME="robbyrussell"
+plugins=(
+    git
+    zsh-autosuggestions
+)
+source $ZSH/oh-my-zsh.sh
+
+# Tmux alias
+alias tn="tmux new -s"
+alias tl="tmux list-sessions"
+alias ta="tmux attach -t"
+alias tk="tmux kill-session -t"
+
+# shortcuts
+alias ldso="cd /etc/ld.so.conf.d"
+alias show="ps -ef |grep"
+alias size="du -h -d 1 *"
+
+# systemctl alias
+alias s_status="systemctl status"
+alias s_restart="systemctl restart"
+alias s_stop="systemctl stop"
+alias s_reload="systemctl daemon-reload"
+
+# Home alias
+alias h="cd $HOME_DIR"
+alias dl="cd $HOME_DIR/download/"
+alias src="cd $HOME_DIR/src"
+alias lib="cd $HOME_DIR/lib"
+alias repo="cd $HOME_DIR/repo"
+alias dev="cd $HOME_DIR/dev"
+alias run="cd $HOME_DIR/run"
+alias save="cd $HOME_DIR/save"
+alias sve="cd $HOME_DIR/dev/SVE"
+alias code="cd $HOME_DIR/code"
+
+# Path
+function add_to_path()
+{
+    export PATH="$1/bin:$PATH"
+    export LD_LIBRARY_PATH="$1/lib:$LD_LIBRARY_PATH"
+    export CMAKE_PREFIX_PATH="$1:$CMAKE_PREFIX_PATH"
+}
+
+function add_profile()
+{
+    if [ -f /opt/profile ];then
+        for i in $(cat /opt/.profile)
+        do
+            add_to_path $i
+        done
+    fi
+}
+
+function edit_zshrc()
+{
+    vim /home/lwt595403/run/.zshrc
+    source ~/.zshrc
+}
+alias z='edit_zshrc'
+
+function edit_profile()
+{
+    vim /opt/profile
+    source ~/.zshrc
+}
+alias x='edit_profile'
+
+# Utils
+function set_proxy()
+{
+    PROXY=$1
+    export http_proxy=$PROXY
+    export https_proxy=$PROXY
+    export no_proxy="localhost,127.0.0.1,172.19.*,10.*,7.*,172.16.*,126.26.*,*.huawei.com"
+    git config --global http.proxy $PROXY
+    git config --global https.proxy $PROXY
+}
+
+function git_config()
+{
+    git config user.name "l00595403"
+    git config user.email "luoweitao@hisilicon.com"
+}
+
+function set_display()
+{
+    systemctl start xrdp
+    export DISPLAY=$(ps -ef |grep Xorg | head -n 1|awk '{print $9}')
+    glxinfo -B |head -n 10|tail -n 6
+}
+
+function drop_cache()
+{
+    sync
+    echo 3 > /proc/sys/vm/drop_caches
+    swapoff -a
+    swapon -a
+    printf '\n%s\n' 'Ram-cache and Swap Cleared'
+}
+
+function kill_root()
+{
+    pkill -KILL -u root
+    systemctl restart xrdp
+    systemctl restart smbd
+}
+
+function install_auto_suggestion()
+{
+    if [ ! -d ${ROOT_DIR}/.oh-my-zsh/custom/plugins/zsh-autosuggestions ];then
+        git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    fi
+}
+
+function install_tmux()
+{
+    PREFIX="$ROOT_DIR/.tmux/plugins/tpm"
+    if [ ! -d $PREFIX ];then
+        git clone https://github.com/tmux-plugins/tpm $PREFIX
+        echo "set -g @plugin 'tmux-plugins/tpm'
+        set -g @plugin 'tmux-plugins/tmux-sensible'
+        set -g @plugin 'arcticicestudio/nord-tmux'
+        run '$ROOT_DIR/.tmux/plugins/tpm/tpm'" > $ROOT_DIR/.tmux.conf
+    fi
+}
+
+chpwd() ls
+
+if [ -d ~/thinclient_drives ]; then
+    umount thinclient_drives
+    rm -rf thinclient_drives
+fi

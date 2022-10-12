@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Independent Project</title>
+</head>
+
+<script type="text/javascript">
+    function submit_gender() {
+        document.getElementById("result").innerHTML = document.getElementById("gender_dropdown").value;
+    }
+</script>
+
+<body>
+    <h1>01. Independent Project</h1>
+    <p>Please select your gender: </p>
+    <select id="gender_dropdown">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Neutral">Neutral</option>
+    </select>
+    <p>Please click the buttion:</p> <button onclick="submit_gender()">Submit</button>
+    <p>Comments on your selection: <span id="result"></span></p>
+</body>
+
+</html>

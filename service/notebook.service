@@ -1,0 +1,17 @@
+[Unit]
+Description=jupyter notebook service
+After=network.target syslog.target
+
+[Service]
+Type=simple
+Environment="http_proxy=http://127.0.0.1:3128"
+Environment="https_proxy=http://127.0.0.1:3128"
+ExecStart=/env/base/bin/jupyter-notebook --allow-root --no-browser --ip 0.0.0.0 --port 8888 /home/lwt595403
+ExecStop=/usr/bin/killall jupyter-notebook
+StandardOutput=append:/var/log/notebook.log
+StandardError=append:/var/log/notebook.log
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+

@@ -1,0 +1,19 @@
+[Unit]
+Description=git-dashboard service
+After=network.target syslog.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/lwt595403/dev/git-dashboard
+Environment="http_proxy=http://172.19.120.90:3128"
+Environment="https_proxy=http://172.19.120.90:3128"
+Environment="PATH=/usr/local/bin:/usr/bin"
+ExecStart=/env/base/bin/python3 /home/lwt595403/dev/git-dashboard/app.py > /tmp/git-dashboard.log
+ExecStop=/usr/bin/killall python3
+Restart=on-failure
+StandardOutput=append:/var/log/mesa-dash.log
+StandardError=append:/var/log/mesa-dash.log
+
+[Install]
+WantedBy=multi-user.target
+

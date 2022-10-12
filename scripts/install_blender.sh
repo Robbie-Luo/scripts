@@ -7,8 +7,8 @@ FORCE_REBUILD="false"
 
 if [ ! -d $INST_DIR ];then
     mkdir $INST_DIR
-    echo "$INST_DIR" > $INST_DIR/.profile
 fi
+echo "$INST_DIR/deps/lib" > /etc/ld.so.conf.d/blender.conf
 
 export PATH="$INST_DIR/deps/bin:$PATH"
 export LD_LIBRARY_PATH="$INST_DIR/deps/lib:$LD_LIBRARY_PATH"
@@ -117,14 +117,16 @@ fi
 compile_deps osl Release-1.11.17.0 https://github.com/AcademySoftwareFoundation/OpenShadingLanguage.git "$osl_d"
 compile_deps osd v3_4_4 https://github.com/PixarAnimationStudios/OpenSubdiv.git "-DNO_TBB=ON -DNO_DOC=ON"
 
-compile_deps embree v3.13.3 https://github.com/embree/embree.git "-DEMBREE_RAY_PACKETS=ON"
+compile_deps embree v3.13.3 https://github.com/embree/embree.git "-DEMBREE_RAY_PACKETS=ON -DEMBREE_ISPC_SUPPORT=OFF"
 
 if [ $(uname -m) == "aarch64" ]; then
     compile_deps openblas v0.3.20 https://github.com/xianyi/OpenBLAS.git
     compile_deps oidn master https://github.com/Robbie-Luo/oidn-aarch64.git "-DDNNL_BLAS_VENDOR=OPENBLAS"
 fi
 
-compile_deps blender v3.2.0 https://github.com/blender/blender.git "-DWITH_OPENVDB=OFF -DWITH_USD=OFF"
+compile_blender blender v3.2.0 https://github.com/blender/blender.git "-DWITH_OPENVDB=OFF -DWITH_USD=OFF"
+
+ldconfig
 
 
 

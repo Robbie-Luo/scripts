@@ -6,7 +6,11 @@ export TERM=xterm-256color
 export LC_ALL=en_US.UTF-8
 
 if [ ! -d ${ZSH} ];then
+    git config --global http.sslverify false
+    echo "insecure" > root/.curlrc
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    wait
+    echo "source ${HOME_DIR}/.zshrc" > /root/.zshrc
 fi
 
 ZSH_THEME="robbyrussell"
@@ -65,7 +69,7 @@ function add_profile()
 
 function edit_zshrc()
 {
-    vim /home/lwt595403/run/.zshrc
+    vim /home/lwt595403/.zshrc
     source ~/.zshrc
 }
 alias z='edit_zshrc'
@@ -90,8 +94,9 @@ function set_proxy()
 
 function git_config()
 {
-    git config user.name "l00595403"
-    git config user.email "luoweitao@hisilicon.com"
+    git config --local user.name "l00595403"
+    git config --local user.email "luoweitao@hisilicon.com"
+    git config --global http.sslverify false
 }
 
 function set_display()
